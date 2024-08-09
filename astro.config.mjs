@@ -24,13 +24,13 @@ export default defineConfig({
     ],
   },
   output: 'server',
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: 'passthrough' }),
   integrations: [react()],
-  // i18n: {
-  //   defaultLocale: PUBLIC_DEFAULT_LOCALE,
-  //   locales: PUBLIC_LOCALES.split(','),
-  //   routing: {
-  //     prefixDefaultLocale: false,
-  //   },
-  // },
+  i18n: {
+    defaultLocale: PUBLIC_DEFAULT_LOCALE,
+    locales: PUBLIC_LOCALES.split(','),
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
 });
