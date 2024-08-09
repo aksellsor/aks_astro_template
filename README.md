@@ -1,4 +1,6 @@
-# Astro Umbraco Headless Starter by Aksell
+[![Open in StackBlitz](./aksell-logo.svg)]
+
+# Astro Umbraco Headless Starter
 
 ```sh
 yarn create astro@latest -- --template aksellsor/aks_astro_template
@@ -45,3 +47,13 @@ npm create astro@latest -- --template aksellsor/aks_astro-template
 │       └── robots.txt.ts
 └── package.json
 ```
+
+## Umbraco Compositions
+
+- [umbraco_compositions/globalSEO.udt](umbraco_compositions/globalSEO.udt)
+
+![Umbraco SEO Composition](umbraco_compositions/umbraco-global-seo-composition.jpg)
+
+- [umbraco_compositions/SEO.udt](umbraco_compositions/SEO.udt)
+
+![Umbraco SEO Composition](umbraco_compositions/umbraco-seo-composition.jpg)
