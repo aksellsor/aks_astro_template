@@ -1,0 +1,43 @@
+---
+const {
+  to = `
+    opacity: 1;
+    transform: translateY(0);
+  `,
+  from = `  
+    transform: translateX(-2rem);
+    opacity: 0;
+  `,
+} = Astro.props;
+function generateRandomClassKey(length = 16) {
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
+
+const key = generateRandomClassKey();
+---
+
+<section
+  style='height:100%;display:grid;place-content:center;'
+  set:html={`
+<style>
+  .${key} {
+    transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  html.is-animating .${key} {
+    ${from}
+  }
+  html:not(.is-animating) .${key} {
+    ${to}
+  }
+</style></section>
+  `}>
+  <div class={key}>
+    <slot />
+  </div>
+</section>

@@ -18,7 +18,7 @@ const AllHotkeys = () => {
     });
     useHotkeys('alt+shift+u', () => {
         let currentId = document.body.getAttribute("data-page-id");
-        openUrl(`${UMBRACO}/umbraco#/content/content/edit/${currentId}`);
+        openUrl(`${UMBRACO}#/content/content/edit/${currentId}`);
     });
     useHotkeys('alt+shift+c', () => openUrl(CLOUDFLARE_DASH));
 };

@@ -3,11 +3,13 @@ import client from '@src/umbraco-client';
 import Layout from '@src/layouts/Layout.astro';
 import Root from '@src/layouts/Root.astro';
 import Page from '@src/layouts/Page.astro';
-import { getLangPrefixFromPathname } from '@src/utils';
+import { getLangPrefixFromPathname, umbracoMedia } from '@src/utils';
 
 // Variables
 let UMBRACO_ROOT_NODE = import.meta.env.UMBRACO_ROOT_NODE;
 let LOCALES = import.meta.env.PUBLIC_OTHER_LOCALES?.split(',');
+let PUBLIC_SITE_URL = import.meta.env.PUBLIC_SITE_URL;
+let PUBLIC_META_LOCALES = import.meta.env.PUBLIC_META_LOCALES;
 
 // Identify roots (/, /en, etc..)
 let rootSlugs = ['/'];
@@ -18,16 +20,13 @@ if (LOCALES && LOCALES.length > 0) {
 // Get data
 const pathname = Astro.url.pathname;
 let preview = Astro.url.searchParams.get('preview') === 'true';
-let culture =
-  Astro.url.searchParams.get('culture') ||
-  getLangPrefixFromPathname(pathname) ||
-  undefined;
+let langPrefix = getLangPrefixFromPathname(pathname);
+let culture = Astro.url.searchParams.get('culture') || langPrefix || undefined;
 let pageData = null;
 let rootData = null;
 
 // Get page data only if not root page
 if (rootSlugs.includes(pathname)) {
-  // IS ROOT
   let data = await client.getContentByGuidOrPath(UMBRACO_ROOT_NODE, {
     preview,
     culture,
@@ -50,12 +49,31 @@ if (!pageData || !rootData) {
     status: 404,
   });
 }
-const { contentType } = pageData;
-const { properties: rootProps, cultures } = rootData;
+const { contentType, id: pageId } = pageData;
+const { properties: rootProps, cultures, name } = rootData;
 let navMenuItems = rootProps?.navMenu?.items;
+let navProps = {
+  navMenuItems,
+};
+const { siteName, SEOtitle, SEOdescription, SEOimage, favicon } = rootProps;
+let seoProps = {
+  sitename: siteName,
+  title: SEOtitle || name,
+  description: SEOdescription,
+  image: umbracoMedia(SEOimage)?.url,
+  favicon: umbracoMedia(favicon)?.url,
+  canonicalUrl: PUBLIC_SITE_URL + pathname,
+  type: 'website',
+  astroGenerator: true,
+  sitemap: true,
+  responsive: true,
+  locale: PUBLIC_META_LOCALES?.split(',')?.find((l) =>
+    l?.startsWith(langPrefix),
+  ),
+};
 ---
 
-<Layout navProps={{ navMenuItems }} {cultures}>
+<Layout {seoProps} {navProps} {cultures} id={pageId}>
   {
     () => {
       switch (contentType) {

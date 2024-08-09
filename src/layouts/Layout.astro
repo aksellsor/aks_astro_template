@@ -9,19 +9,15 @@ import Cultures from '@components/standard/Cultures.astro';
 import BreadCrumbs from '@components/standard/BreadCrumbs.astro';
 import SEO from '@components/standard/SEO.astro';
 
-const { navProps, cultures, seoProps } = Astro.props;
+const { navProps, cultures, seoProps, id } = Astro.props;
 ---
 
 <html lang='en'>
   <head>
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta charset='utf-8' />
-    <meta name='viewport' content='width=device-width' />
-    <title>Astro</title>
     <SEO {...seoProps} />
     <style is:global>
       html {
-        font-family: system-ui;
         display: grid;
       }
       body {
@@ -29,6 +25,10 @@ const { navProps, cultures, seoProps } = Astro.props;
         position: relative;
         display: grid;
         grid-template-rows: auto 1fr auto;
+        font-family: system-ui, sans-serif;
+        text-rendering: geometricPrecision;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
       html,
       body {
@@ -58,9 +58,16 @@ const { navProps, cultures, seoProps } = Astro.props;
         flex-direction: column;
         margin-top: 2rem;
       }
+      .swup-progress-bar {
+        height: 4px;
+        background-color: #f44d42;
+      }
+      h1 {
+        font-size: 2rem;
+      }
     </style>
   </head>
-  <body>
+  <body id='swup' data-page-id={id}>
     <AllHotkeys client:load />
     <TitleOnLeave titleOnLeave=':(' />
     <HideUiOnScroll />
@@ -74,5 +81,52 @@ const { navProps, cultures, seoProps } = Astro.props;
       <slot />
     </main>
     <Footer />
+
+    <script>
+      import Swup from 'swup';
+      import SwupPreloadPlugin from '@swup/preload-plugin';
+      import SwupHeadPlugin from '@swup/head-plugin';
+      import SwupScriptsPlugin from '@swup/scripts-plugin';
+      import SwupProgressPlugin from '@swup/progress-plugin';
+      import SwupFormsPlugin from '@swup/forms-plugin';
+      const linkInclude = [
+        `a[href^="${window.location.origin}"]`,
+        `a[href^="/"]`,
+        `a[href^="#"]`,
+      ];
+      const linkExclude = [
+        `a[href^="/media"]`,
+        '[download]',
+        '[target="_blank"]',
+        '[data-no-swup]',
+        `[href$=".pdf"]`,
+      ];
+
+      const exclude = linkExclude
+        .map((selector) => `:not(${selector})`)
+        .join('');
+      const linkSelector = linkInclude
+        .map((include) => `${include}${exclude}`)
+        .join(',');
+      var swup = new Swup({
+        cache: true,
+        linkSelector,
+        animationSelector: false,
+        plugins: [
+          new SwupHeadPlugin(),
+          new SwupScriptsPlugin(),
+          new SwupPreloadPlugin(),
+          new SwupProgressPlugin({
+            className: 'swup-progress-bar',
+            transition: 300,
+            delay: 300,
+            initialValue: 0.25,
+            finishAnimation: true,
+          }),
+          new SwupFormsPlugin(),
+        ],
+      });
+      window['swup'] = swup;
+    </script>
   </body>
 </html>

@@ -12,6 +12,11 @@
   "dependencies": {
     "@astrojs/cloudflare": "^11.0.4",
     "@astrojs/react": "^3.6.1",
+    "@swup/forms-plugin": "^3.6.0",
+    "@swup/head-plugin": "^2.2.0",
+    "@swup/preload-plugin": "^3.2.10",
+    "@swup/progress-plugin": "^3.2.0",
+    "@swup/scripts-plugin": "^2.1.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "astro": "^4.13.1",
@@ -19,6 +24,9 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hotkeys-hook": "^4.5.0",
+    "sass": "^1.77.8",
+    "swup": "^4.7.0",
     "vite-plugin-qrcode": "^0.2.3"
-  }
+  },
+  "packageManager": "yarn@4.4.0"
 }
