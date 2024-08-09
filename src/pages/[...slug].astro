@@ -1,0 +1,69 @@
+---
+import client from '@src/umbraco-client';
+import Layout from '@src/layouts/Layout.astro';
+import Root from '@src/layouts/Root.astro';
+import Page from '@src/layouts/Page.astro';
+import { getLangPrefixFromPathname } from '@src/utils';
+
+// Variables
+let UMBRACO_ROOT_NODE = import.meta.env.UMBRACO_ROOT_NODE;
+let LOCALES = import.meta.env.PUBLIC_OTHER_LOCALES?.split(',');
+
+// Identify roots (/, /en, etc..)
+let rootSlugs = ['/'];
+if (LOCALES && LOCALES.length > 0) {
+  rootSlugs = [...rootSlugs, ...LOCALES.map((langcode) => `/${langcode}`)];
+}
+
+// Get data
+const pathname = Astro.url.pathname;
+let preview = Astro.url.searchParams.get('preview') === 'true';
+let culture =
+  Astro.url.searchParams.get('culture') ||
+  getLangPrefixFromPathname(pathname) ||
+  undefined;
+let pageData = null;
+let rootData = null;
+
+// Get page data only if not root page
+if (rootSlugs.includes(pathname)) {
+  // IS ROOT
+  let data = await client.getContentByGuidOrPath(UMBRACO_ROOT_NODE, {
+    preview,
+    culture,
+  });
+  pageData = data;
+  rootData = data;
+} else {
+  let path = Astro.params.slug || UMBRACO_ROOT_NODE;
+  pageData = await client.getContentByGuidOrPath(path, {
+    preview,
+    culture,
+  });
+  rootData = await client.getContentByGuidOrPath(UMBRACO_ROOT_NODE, {
+    preview,
+    culture,
+  });
+}
+if (!pageData || !rootData) {
+  return new Response(null, {
+    status: 404,
+  });
+}
+const { contentType } = pageData;
+const { properties: rootProps, cultures } = rootData;
+let navMenuItems = rootProps?.navMenu?.items;
+---
+
+<Layout navProps={{ navMenuItems }} {cultures}>
+  {
+    () => {
+      switch (contentType) {
+        case 'root':
+          return <Root pageData={pageData} />;
+        default:
+          return <Page pageData={pageData} />;
+      }
+    }
+  }
+</Layout>

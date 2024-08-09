@@ -1,0 +1,35 @@
+---
+import { isMobileUserAgent } from '@src/utils.ts';
+const { titleOnLeave } = Astro.props;
+const { request } = Astro;
+const userAgent = request.headers.get('user-agent') || '';
+let isMobile = isMobileUserAgent(userAgent);
+let delay = 0;
+if (isMobile) delay = 500;
+---
+
+<script define:vars={{ titleOnLeave, delay }}>
+  let originalTitle = document.title;
+  const onTabBlur = (e) => {
+    if (titleOnLeave) {
+      setTimeout(() => {
+        document.title = titleOnLeave;
+      }, delay);
+    }
+  };
+  const onTabFocus = (e) => {
+    document.title = originalTitle;
+  };
+  let init = function () {
+    window.addEventListener('blur', onTabBlur);
+    window.addEventListener('focus', onTabFocus);
+  };
+  let unload = function () {
+    window.removeEventListener('blur', onTabBlur);
+    window.removeEventListener('focus', onTabFocus);
+  };
+  // Proper init and cleanup on page transition
+  document.addEventListener('DOMContentLoaded', init);
+  window.swup?.hooks?.on('page:view', init);
+  window.swup?.hooks?.before('content:replace', unload);
+</script>

@@ -1,0 +1,54 @@
+---
+import { getLangPrefixFromPathname } from '@src/utils';
+
+const { cultures } = Astro.props;
+const pathname = Astro.url.pathname;
+let culture =
+  Astro.url.searchParams.get('culture') ||
+  getLangPrefixFromPathname(pathname) ||
+  undefined;
+---
+
+<div class='lang-selector'>
+  {
+    typeof cultures === 'object' &&
+      Object.entries(cultures)?.map((keyVal: any, index) => {
+        let lang = keyVal[0];
+        let url = keyVal[1].path;
+        return (
+          <>
+            <a href={url} class={culture === lang ? 'current' : ''}>
+              {lang}
+            </a>
+            {index !== Object.entries(cultures)?.length - 1 && <span>/</span>}
+          </>
+        );
+      })
+  }
+</div>
+
+<style>
+  .lang-selector {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: calc(100% - 3rem);
+    max-width: 1000px;
+  }
+  .lang-selector span {
+    opacity: 0.5;
+  }
+  .lang-selector a {
+    color: inherit;
+    padding: 0.5rem;
+    text-decoration: none;
+    opacity: 0.5;
+  }
+  .lang-selector a.current {
+    font-weight: bold;
+    opacity: 1;
+  }
+  .lang-selector a:hover {
+    background-color: rgba(150, 150, 150, 0.2);
+  }
+</style>

@@ -1,12 +1,8 @@
 import client from '../umbraco-client';
 
 const siteUrl = import.meta.env.PUBLIC_SITE_URL;
-const PUBLIC_DEFAULT_LOCALE = import.meta.env.PUBLIC_DEFAULT_LOCALE;
 const LOCALES = import.meta.env.PUBLIC_LOCALES?.split(',');
-let NOT_DEFAULT_LOCALES = LOCALES?.filter(
-  (langcode) => langcode !== PUBLIC_DEFAULT_LOCALE,
-);
-console.log(NOT_DEFAULT_LOCALES);
+const NOT_DEFAULT_LOCALES = import.meta.env.PUBLIC_OTHER_LOCALES?.split(',');
 export async function GET() {
   const dynamicRoutes = await fetchDynamicRoutes(); // Function to fetch dynamic routes
 

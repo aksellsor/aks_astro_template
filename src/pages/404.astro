@@ -1,0 +1,29 @@
+---
+import { translate } from '@src/utils.ts';
+import Layout from '@src/layouts/Layout.astro';
+
+const path = Astro.url.pathname;
+const msg = translate(path, 'ble ikke funnet');
+---
+
+<Layout>
+  <div class='err-box'>
+    <h1>404!</h1>
+    <p>
+      <b>{path}</b>
+      {msg}
+    </p>
+  </div>
+</Layout>
+
+<style>
+  .err-box {
+    display: grid;
+    place-content: center;
+    height: 100%;
+    text-align: center;
+    background: rgba(236, 78, 78, 0.1);
+    padding: 1rem;
+    color: rgb(255, 97, 97);
+  }
+</style>

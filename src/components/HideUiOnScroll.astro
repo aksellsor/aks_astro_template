@@ -1,0 +1,40 @@
+<script>
+  let lastScrollTop = 0;
+
+  function hideNavbarOnScroll() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const elements = document.querySelectorAll('[data-hide-on-scroll]');
+
+    elements.forEach((el) => {
+      if (scrollTop > lastScrollTop) {
+        el.classList.add('hide');
+      } else {
+        el.classList.remove('hide');
+      }
+    });
+
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+  }
+
+  function init() {
+    window.addEventListener('scroll', hideNavbarOnScroll, { passive: true });
+  }
+
+  function unload() {
+    window.removeEventListener('scroll', hideNavbarOnScroll);
+  }
+
+  // Proper init and cleanup on page transition
+  document.addEventListener('DOMContentLoaded', init);
+  window.swup?.hooks?.on('page:view', init);
+  window.swup?.hooks?.before('content:replace', unload);
+</script>
+
+<style is:global>
+  [data-hide-on-scroll] {
+    will-change: transform;
+  }
+  [data-hide-on-scroll].hide {
+    pointer-events: none;
+  }
+</style>

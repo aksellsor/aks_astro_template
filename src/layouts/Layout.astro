@@ -1,32 +1,63 @@
 ---
+import Darkmode from '@components/Darkmode-wrapper.astro';
 import AllHotkeys from '@components/Hotkeys';
+import TitleOnLeave from '@components/TitleOnLeave.astro';
+import HideUiOnScroll from '@components/HideUiOnScroll.astro';
+import Nav from '@components/Nav.astro';
+import Footer from '@components/Footer.astro';
+import Cultures from '@components/Cultures.astro';
+
+const { navProps, cultures } = Astro.props;
 ---
 
 <html lang='en'>
   <head>
-    <meta charset='utf-8' />
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
     <title>Astro</title>
-    <style>
+    <style is:global>
       html {
         font-family: system-ui;
+        display: grid;
       }
       body {
         margin: 0;
+        position: relative;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+      }
+      html,
+      body {
+        min-height: 100%;
       }
       *,
       *::before,
       *::after {
         box-sizing: border-box;
       }
+      html[data-theme='dark'] {
+        background-color: #000;
+        color: #fff;
+      }
+      a:hover {
+        opacity: 0.8;
+      }
     </style>
   </head>
   <body>
     <AllHotkeys client:load />
-    <section style='height:100dvh;display:grid;place-content: center;'>
-      <h1>Aksell Astro Template</h1>
-    </section>
+    <TitleOnLeave titleOnLeave=':(' />
+    <HideUiOnScroll />
+    <Darkmode />
+    <header>
+      <Nav {...navProps} />
+      <Cultures {cultures} />
+    </header>
+    <main style='min-height:100%;display:grid;place-content:center;'>
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
