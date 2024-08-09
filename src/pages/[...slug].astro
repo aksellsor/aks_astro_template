@@ -6,7 +6,7 @@ import Page from '@src/layouts/Page.astro';
 import { getLangPrefixFromPathname, umbracoMedia } from '@src/utils';
 
 // Variables
-let UMBRACO_ROOT_NODE = import.meta.env.UMBRACO_ROOT_NODE;
+let PUBLIC_UMBRACO_ROOT_NODE = import.meta.env.PUBLIC_UMBRACO_ROOT_NODE;
 let LOCALES = import.meta.env.PUBLIC_OTHER_LOCALES?.split(',');
 let PUBLIC_SITE_URL = import.meta.env.PUBLIC_SITE_URL;
 let PUBLIC_META_LOCALES = import.meta.env.PUBLIC_META_LOCALES;
@@ -27,19 +27,19 @@ let rootData = null;
 
 // Get page data only if not root page
 if (rootSlugs.includes(pathname)) {
-  let data = await client.getContentByGuidOrPath(UMBRACO_ROOT_NODE, {
+  let data = await client.getContentByGuidOrPath(PUBLIC_UMBRACO_ROOT_NODE, {
     preview,
     culture,
   });
   pageData = data;
   rootData = data;
 } else {
-  let path = Astro.params.slug || UMBRACO_ROOT_NODE;
+  let path = Astro.params.slug || PUBLIC_UMBRACO_ROOT_NODE;
   pageData = await client.getContentByGuidOrPath(path, {
     preview,
     culture,
   });
-  rootData = await client.getContentByGuidOrPath(UMBRACO_ROOT_NODE, {
+  rootData = await client.getContentByGuidOrPath(PUBLIC_UMBRACO_ROOT_NODE, {
     preview,
     culture,
   });

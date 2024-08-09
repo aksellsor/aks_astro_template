@@ -1,5 +1,5 @@
 const {
-  UMBRACO_ROOT_NODE,
+  PUBLIC_UMBRACO_ROOT_NODE,
   UMBRACO_PREVIEW_API_KEY,
   PUBLIC_DEFAULT_LOCALE,
   PUBLIC_UMBRACO_URL,
@@ -180,7 +180,7 @@ class UmbracoClient {
 
   async getAllUrls(culture: string) {
     try {
-      return await this.getDescendants(UMBRACO_ROOT_NODE, {
+      return await this.getDescendants(PUBLIC_UMBRACO_ROOT_NODE, {
         preview: false,
         culture: culture,
         sort: '',

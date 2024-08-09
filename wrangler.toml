@@ -15,6 +15,6 @@ PUBLIC_GITHUB_REPO="https://github.com/aksellsor/aks_astro_template"
 PUBLIC_UMBRACO_URL="https://1251167-www.web.tornado-node.net/umbraco"
 PUBLIC_CLOUDFLARE_DASH="https://dash.cloudflare.com/781f2601c68594125b6b97567364d0d6/pages/view/aks-astro-template"
 
-IMAGE_CDN="https://1251167-www.web.tornado-node.net"
-UMBRACO_ROOT_NODE="a6244e26-7dd6-4bf6-9052-d276e3ed827c"
+PUBLIC_IMAGE_CDN="https://1251167-www.web.tornado-node.net"
+PUBLIC_UMBRACO_ROOT_NODE="a6244e26-7dd6-4bf6-9052-d276e3ed827c"
 UMBRACO_PREVIEW_API_KEY=""

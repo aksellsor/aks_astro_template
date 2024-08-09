@@ -1,6 +1,6 @@
 ---
 let PUBLIC_LOCALES = import.meta.env.PUBLIC_LOCALES?.split(',');
-let UMBRACO_ROOT_NODE = import.meta.env.UMBRACO_ROOT_NODE;
+let PUBLIC_UMBRACO_ROOT_NODE = import.meta.env.PUBLIC_UMBRACO_ROOT_NODE;
 const path = Astro.url.pathname;
 const getBreadcrumbs = (path) => {
   let pathParts = path?.split('/').filter((part) => part?.trim() !== '');
@@ -16,7 +16,7 @@ const getBreadcrumbs = (path) => {
       label: part,
       href:
         previousParts?.length > 0
-          ? `${foreignLang ? UMBRACO_ROOT_NODE : ''}${previousParts?.join('/')}/${part}`
+          ? `${foreignLang ? PUBLIC_UMBRACO_ROOT_NODE : ''}${previousParts?.join('/')}/${part}`
           : `/${part}`,
     };
   });

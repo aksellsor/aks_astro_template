@@ -10,6 +10,17 @@ import BreadCrumbs from '@components/standard/BreadCrumbs.astro';
 import SEO from '@components/standard/SEO.astro';
 
 const { navProps, cultures, seoProps, id } = Astro.props;
+
+const PUBLIC_LOCALES = import.meta.env.PUBLIC_LOCALES;
+const PUBLIC_OTHER_LOCALES = import.meta.env.PUBLIC_OTHER_LOCALES;
+const PUBLIC_DEFAULT_LOCALE = import.meta.env.PUBLIC_DEFAULT_LOCALE;
+const PUBLIC_META_LOCALES = import.meta.env.PUBLIC_META_LOCALES;
+const PUBLIC_SITE_URL = import.meta.env.PUBLIC_SITE_URL;
+const PUBLIC_GITHUB_REPO = import.meta.env.PUBLIC_GITHUB_REPO;
+const PUBLIC_UMBRACO_URL = import.meta.env.PUBLIC_UMBRACO_URL;
+const PUBLIC_CLOUDFLARE_DASH = import.meta.env.PUBLIC_CLOUDFLARE_DASH;
+const PUBLIC_UMBRACO_ROOT_NODE = import.meta.env.PUBLIC_UMBRACO_ROOT_NODE;
+const PUBLIC_IMAGE_CDN = import.meta.env.PUBLIC_IMAGE_CDN;
 ---
 
 <html lang='en'>
@@ -78,6 +89,18 @@ const { navProps, cultures, seoProps, id } = Astro.props;
       <Cultures {cultures} />
     </header>
     <main style='min-height:100%;display:grid;place-content:center;'>
+      <pre>{JSON.stringify(
+       { PUBLIC_LOCALES,
+PUBLIC_OTHER_LOCALES,
+PUBLIC_DEFAULT_LOCALE,
+PUBLIC_META_LOCALES,
+PUBLIC_SITE_URL,
+PUBLIC_GITHUB_REPO,
+PUBLIC_UMBRACO_URL,
+PUBLIC_CLOUDFLARE_DASH,
+PUBLIC_UMBRACO_ROOT_NODE,
+PUBLIC_IMAGE_CDN}
+        ,null,1)}</pre>
       <slot />
     </main>
     <Footer />

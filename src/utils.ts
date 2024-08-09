@@ -1,7 +1,7 @@
 import translations from '@src/data/translation.json';
 
 let PUBLIC_DEFAULT_LOCALE = import.meta.env.PUBLIC_DEFAULT_LOCALE;
-let IMAGE_CDN = import.meta.env.IMAGE_CDN;
+let PUBLIC_IMAGE_CDN = import.meta.env.PUBLIC_IMAGE_CDN;
 function l(locale: string, string: string): string {
   if (translations[string] && translations[string][locale]) {
     return translations[string][locale];
@@ -65,7 +65,7 @@ const umbracoLink = (item) => {
 function umbracoMedia(image, params = '') {
   if (!image) return;
   const { url, name } = image[0];
-  return { url: `${IMAGE_CDN}${url}${params}`, name };
+  return { url: `${PUBLIC_IMAGE_CDN}${url}${params}`, name };
 }
 
 export {
