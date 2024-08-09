@@ -28,9 +28,6 @@ const pathname = Astro.url.pathname;
 
 <style>
   .nav {
-    max-width: 1000px;
-    width: calc(100% - 3rem);
-    margin: 1rem auto 2rem auto;
     display: flex;
     align-items: center;
     background-color: rgba(150, 150, 150, 0.2);
@@ -48,9 +45,9 @@ const pathname = Astro.url.pathname;
   }
   .main-menu_item:hover {
     cursor: pointer;
+    text-decoration: underline;
   }
   .main-menu_item:before {
-    pointer-events: none;
     content: '';
     position: absolute;
     inset: 10% 5% 10% 5%;

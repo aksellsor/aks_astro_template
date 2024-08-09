@@ -1,0 +1,115 @@
+---
+const props = { ...Astro.props };
+
+/* ———————————————————————————————————————————— Typeguards + Fallbacks —————— */
+if (typeof props.siteName !== 'string') {
+  props.siteName = undefined;
+}
+if (typeof props.title !== 'string') {
+  props.title = undefined;
+}
+if (typeof props.description !== 'string') {
+  props.description = undefined;
+}
+if (typeof props.image !== 'string') {
+  props.image = undefined;
+}
+if (typeof props.favicon !== 'string') {
+  props.favicon = undefined;
+}
+if (typeof props.author !== 'string') {
+  props.author = undefined;
+}
+if (typeof props.copyright !== 'string') {
+  props.copyright = undefined;
+}
+if (typeof props.astroSitemap !== 'boolean') {
+  props.astroSitemap = true;
+}
+if (typeof props.astroGenerator !== 'boolean') {
+  props.astroGenerator = true;
+}
+if (typeof props.canonicalUrl !== 'string') {
+  props.canonicalUrl = import.meta.env.SITE
+    ? import.meta.env.SITE + Astro.url.pathname.replace(/\.html$/, '')
+    : Astro.url.toString();
+}
+if (typeof props.type !== 'string') {
+  props.type = undefined;
+}
+/* —————————————————————————————————————————————————————————————————————————— */
+---
+
+<!-- SEO -->
+<link rel='canonical' href={props.canonicalUrl} />
+
+<meta property='og:type' content={props.type || 'website'} />
+
+{
+  props.siteName && (
+    <>
+      <meta name='apple-mobile-web-app-title' content={props.siteName} />
+      <meta property='og:site_name' content={props.siteName} />
+    </>
+  )
+}
+
+{props.title && <title>{props.title}</title>}
+{
+  /* 
+    HACK: Bug w. Astro parser (1.9.0), we must put title outside the group below
+    It hangs even between JSX / HTML comments
+  */
+}
+{
+  props.title && (
+    <>
+      <meta property='og:title' content={props.title} />
+      <meta name='twitter:title' content={props.title} />
+    </>
+  )
+}
+
+{
+  props.description && (
+    <>
+      <meta property='og:image:alt' content={props.description} />
+      <meta
+        name='description'
+        property='og:description'
+        content={props.description}
+      />
+      <meta name='twitter:description' content={props.description} />
+    </>
+  )
+}
+
+{
+  props.image && (
+    <>
+      <meta property='og:image' content={props.image} />
+      <meta name='twitter:image:src' content={props.image} />
+      <meta name='twitter:card' content={'summary_large_image'} />
+    </>
+  )
+}
+
+{props.favicon && <link rel='icon' href={props.favicon} />}
+
+<!-- | -->
+
+{props.author && <meta name='author' content={props.author} />}
+
+{props.copyright && <meta name='copyright' content={props.copyright} />}
+
+<!-- | -->
+
+{
+  props.astroSitemap && (
+    <link rel='sitemap' type='application/xml' href='/sitemap-index.xml' />
+  )
+}
+
+{props.astroGenerator && <meta name='generator' content={Astro.generator} />}
+
+<!-- /SEO -->
