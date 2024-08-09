@@ -6,6 +6,7 @@
     "dev": "NODE_ENV=development astro dev --host",
     "build": "astro build",
     "preview": "npx wrangler pages dev ./dist",
+    "deploy:cloudflare": "npx wrangler pages deploy ./dist",
     "astro": "astro",
     "deploy": "git push origin main:production -f"
   },
