@@ -10,7 +10,7 @@
     "deploy": "git push origin main:production -f"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^11.0.4",
+    "@astrojs/cloudflare": "11.0.1",
     "@astrojs/react": "^3.6.1",
     "@swup/forms-plugin": "^3.6.0",
     "@swup/head-plugin": "^2.2.0",
