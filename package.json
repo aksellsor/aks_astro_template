@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "NODE_ENV=development astro dev --host",
-    "build": "NODE_ENV=production astro build",
+    "build": "astro build",
     "preview": "npx wrangler pages dev ./dist",
     "astro": "astro",
     "deploy": "git push origin main:production -f"
