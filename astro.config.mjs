@@ -26,11 +26,11 @@ export default defineConfig({
   output: 'server',
   adapter: cloudflare(),
   integrations: [react()],
-  i18n: {
-    defaultLocale: PUBLIC_DEFAULT_LOCALE,
-    locales: PUBLIC_LOCALES.split(','),
-    routing: {
-      prefixDefaultLocale: false,
-    },
-  },
+  // i18n: {
+  //   defaultLocale: PUBLIC_DEFAULT_LOCALE,
+  //   locales: PUBLIC_LOCALES.split(','),
+  //   routing: {
+  //     prefixDefaultLocale: false,
+  //   },
+  // },
 });
