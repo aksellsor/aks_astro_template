@@ -1,4 +1,4 @@
-[![Open in StackBlitz](./aksell-logo.svg)]
+<img src="./aksell-logo.svg" width="100px"/>
 
 # Astro Umbraco Headless Starter
 
