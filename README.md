@@ -5,6 +5,12 @@ yarn create astro@latest -- --template aksellsor/aks_astro_template
 npm create astro@latest -- --template aksellsor/aks_astro-template
 ```
 
+## Live demo
+
+[![View on Cloudflare Pages](https://img.shields.io/badge/view%20on-Cloudflare%20Pages-orange?logo=cloudflare&logoColor=white&style=for-the-badge)](https://aks-astro-template.pages.dev/)
+
+## Edit
+
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/aksellsor/aks_astro_template/tree/main)
 [![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/devbox/github/aksellsor/aks_astro_template/tree/main)
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new/aksellsor/aks_astro_template)
