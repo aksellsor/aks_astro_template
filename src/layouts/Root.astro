@@ -5,6 +5,9 @@ const path = Astro.url.pathname;
 const intro = translate(path, 'Aksell Astro Mal');
 ---
 
-<Enter from='transform:scale(1.1);' to='transform:scale(1);'>
+<Enter
+  from='transform:scale(1.1);'
+  to='transform:scale(1);'
+  key='root-title-enter'>
   <h1>{intro}</h1>
 </Enter>

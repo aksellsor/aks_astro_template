@@ -4,6 +4,6 @@ import Enter from '@components/standard/Enter.astro';
 const { pageData } = Astro.props;
 ---
 
-<Enter>
+<Enter key='page-title-enter'>
   <h1>{pageData?.name}</h1>
 </Enter>
