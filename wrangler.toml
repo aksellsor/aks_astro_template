@@ -1,3 +1,5 @@
+
+[env.production]
 PUBLIC_LOCALES='nb,en'
 PUBLIC_OTHER_LOCALES='en'
 PUBLIC_DEFAULT_LOCALE='nb'
