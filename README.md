@@ -19,6 +19,7 @@ npm create astro@latest -- --template aksellsor/aks_astro-template
 
 ## 🚀 Features
 
+- Cloudflare Pages hosting via Adapter
 - Multilingual support
 - Page transitions by using Swup
 - SEO
