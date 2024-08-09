@@ -1,31 +1,9 @@
 ---
-
+import Layout from '@src/layouts/Layout.astro';
 ---
 
-<html lang='en'>
-  <head>
-    <meta charset='utf-8' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-    <meta name='viewport' content='width=device-width' />
-    <meta name='generator' content={Astro.generator} />
-    <title>Astro</title>
-    <style>
-      html {
-        font-family: system-ui;
-      }
-      body {
-        margin: 0;
-      }
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
-    </style>
-  </head>
-  <body>
-    <section style='height:100dvh;display:grid;place-content: center;'>
-      <h1>Aksell Astro Template</h1>
-    </section>
-  </body>
-</html>
+<Layout>
+  <section style='height:100dvh;display:grid;place-content: center;'>
+    <h1>Aksell Astro Template</h1>
+  </section>
+</Layout>
